@@ -1,0 +1,23 @@
+include emu8086.inc
+org 100h
+
+print 'Hello World'
+
+gotoxy 10,5
+
+putc 'A'
+putc 'B'
+
+
+
+ret
+end
+
+
+
+
+
+
+
+
+; [SOURCE]: C:\Users\Michael Kamara\Documents\Projects\x86 Assembly Language\includeFiles.asm
