@@ -1,0 +1,20 @@
+< THE SYMBOL TABLE >  robot.bin_  --  emu8086 assembler version: 4.08 
+===================================================================================================
+Name                     	Offset    	Size      	Type      	Segment   
+===================================================================================================
+ETERNAL_LOOP             	00000     	-1        	LABEL     	(NOSEG)   
+LAMP_OFF                 	0001D     	-1        	LABEL     	(NOSEG)   
+CONT                     	00021     	-1        	LABEL     	(NOSEG)   
+WAIT_ROBOT               	00034     	-1        	NEAR      	(NOSEG)   
+BUSY                     	00034     	-1        	LABEL     	(NOSEG)   
+WAIT_EXAM                	0003B     	-1        	NEAR      	(NOSEG)   
+BUSY2                    	0003B     	-1        	LABEL     	(NOSEG)   
+SWITCH_OFF_LAMP          	00042     	-1        	NEAR      	(NOSEG)   
+SWITCH_ON_LAMP           	00047     	-1        	NEAR      	(NOSEG)   
+RANDOM_TURN              	0004C     	-1        	NEAR      	(NOSEG)   
+TURN_RIGHT               	00065     	-1        	LABEL     	(NOSEG)   
+NO_TURN                  	00069     	-1        	LABEL     	(NOSEG)   
+===================================================================================================
+[ 24/06/2021  --  15:00:41 ] 
+< END >
+ 

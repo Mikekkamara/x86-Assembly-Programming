@@ -1,0 +1,191 @@
+EMU8086 GENERATED LISTING. MACHINE CODE <- SOURCE.
+ 
+robot.bin_ -- emu8086 assembler version: 4.08  
+ 
+[ 24/06/2021  --  15:00:41 ] 
+ 
+===================================================================================================
+[LINE]     LOC: MACHINE CODE                          SOURCE
+===================================================================================================
+ 
+[   1]        :                                       
+[   2]        :                                       #start=robot.exe#
+[   3]        :                                       
+[   4]        :                                       name "robot"
+[   5]        :                                       
+[   6]        :                                       #make_bin#
+[   7]        :                                       #cs = 500#
+[   8]        :                                       #ds = 500#
+[   9]        :                                       #ss = 500#    ; stack
+[  10]        :                                       #sp = ffff#
+[  11]        :                                       #ip = 0#
+[  12]        :                                       
+[  13]        :                                       ; this is an example of contoling the robot.
+[  14]        :                                       
+[  15]        :                                       ; this code randomly moves the robot,
+[  16]        :                                       ; and makes it to switch the lamps on and off.
+[  17]        :                                       
+[  18]        :                                       ; robot is a mechanical creature and it takes
+[  19]        :                                       ; some time for it to complete a task.
+[  20]        :                                       ; status register is used to see if robot is busy or not.
+[  21]        :                                       
+[  22]        :                                       ; c:\emu8086\devices\robot.exe uses ports 9, 10 and 11
+[  23]        :                                       ; source code of the robot and other devices is in:
+[  24]        :                                       ; c:\emu8086\devices\developer\sources\
+[  25]        :                                       ; robot is programmed in visual basic 6.0
+[  26]        :                                       
+[  27]        :                                       
+[  28]        :                                       ; robot base i/o port:
+[  29]        :                                       r_port equ 9
+[  30]        :                                       
+[  31]        :                                       ;===================================
+[  32]        :                                       
+[  33]    0000:                                       eternal_loop:
+[  34]        :                                       ; wait until robot
+[  35]        :                                       ; is ready:
+[  36]    0000: E8 31 00                              call wait_robot
+[  37]        :                                       
+[  38]        :                                       ; examine the area
+[  39]        :                                       ; in front of the robot:
+[  40]    0003: B0 04                                 mov al, 4
+[  41]    0005: E6 09                                 out r_port, al
+[  42]        :                                       
+[  43]    0007: E8 31 00                              call wait_exam
+[  44]        :                                       
+[  45]        :                                       ; get result from
+[  46]        :                                       ; data register:
+[  47]    000A: E4 0A                                 in al, r_port + 1
+[  48]        :                                       
+[  49]        :                                       ; nothing found?
+[  50]    000C: 3C 00                                 cmp al, 0
+[  51]    000E: 74 11                                 je cont  ; - yes, so continue.
+[  52]        :                                       
+[  53]        :                                       ; wall?
+[  54]    0010: 3C FF                                 cmp al, 255
+[  55]    0012: 74 0D                                 je cont  ; - yes, so continue.
+[  56]        :                                       
+[  57]        :                                       ; switched-on lamp?
+[  58]    0014: 3C 07                                 cmp al, 7
+[  59]    0016: 75 05                                 jne lamp_off  ; - no, so skip.
+[  60]        :                                       ; - yes, so switch it off,
+[  61]        :                                       ;   and turn:
+[  62]    0018: E8 27 00                              call switch_off_lamp
+[  63]    001B: EB 04                                 jmp  cont  ; continue
+[  64]        :                                       
+[  65]    001D: 90                                    lamp_off: nop
+[  66]        :                                       
+[  67]        :                                       ; if gets here, then we have
+[  68]        :                                       ; switched-off lamp, because
+[  69]        :                                       ; all other situations checked
+[  70]        :                                       ; already:
+[  71]    001E: E8 26 00                              call switch_on_lamp
+[  72]        :                                       
+[  73]    0021:                                       cont:
+[  74]    0021: E8 28 00                              call random_turn
+[  75]        :                                       
+[  76]    0024: E8 0D 00                              call wait_robot
+[  77]        :                                       
+[  78]        :                                       ; try to step forward:
+[  79]    0027: B0 01                                 mov al, 1
+[  80]    0029: E6 09                                 out r_port, al
+[  81]        :                                       
+[  82]    002B: E8 06 00                              call wait_robot
+[  83]        :                                       
+[  84]        :                                       ; try to step forward again:
+[  85]    002E: B0 01                                 mov al, 1
+[  86]    0030: E6 09                                 out r_port, al
+[  87]        :                                       
+[  88]    0032: EB CC                                 jmp eternal_loop ; go again!
+[  89]        :                                       
+[  90]        :                                       ;===================================
+[  91]        :                                       
+[  92]        :                                       ; this procedure does not
+[  93]        :                                       ; return until robot is ready
+[  94]        :                                       ; to receive next command:
+[  95]    0034:                                       wait_robot proc
+[  96]        :                                       ; check if robot busy:
+[  97]    0034: E4 0B                                 busy: in al, r_port+2
+[  98]    0036: A8 02                                 test al, 00000010b
+[  99]    0038: 75 FA                                 jnz busy ; busy, so wait.
+[ 100]    003A: C3                                    ret
+[ 101]        :                                       wait_robot endp
+[ 102]        :                                       
+[ 103]        :                                       ;===================================
+[ 104]        :                                       
+[ 105]        :                                       ; this procedure does not
+[ 106]        :                                       ; return until robot completes
+[ 107]        :                                       ; the examination:
+[ 108]    003B:                                       wait_exam proc
+[ 109]        :                                       ; check if has new data:
+[ 110]    003B: E4 0B                                 busy2: in al, r_port+2
+[ 111]    003D: A8 01                                 test al, 00000001b
+[ 112]    003F: 74 FA                                 jz busy2 ; no new data, so wait.
+[ 113]    0041: C3                                    ret
+[ 114]        :                                       wait_exam endp
+[ 115]        :                                       
+[ 116]        :                                       ;===================================
+[ 117]        :                                       
+[ 118]        :                                       ; switch off the lamp:
+[ 119]    0042:                                       switch_off_lamp proc
+[ 120]    0042: B0 06                                 mov al, 6
+[ 121]    0044: E6 09                                 out r_port, al
+[ 122]    0046: C3                                    ret
+[ 123]        :                                       switch_off_lamp endp
+[ 124]        :                                       
+[ 125]        :                                       ;===================================
+[ 126]        :                                       
+[ 127]        :                                       ; switch on the lamp:
+[ 128]    0047:                                       switch_on_lamp proc
+[ 129]    0047: B0 05                                 mov al, 5
+[ 130]    0049: E6 09                                 out r_port, al
+[ 131]    004B: C3                                    ret
+[ 132]        :                                       switch_on_lamp endp
+[ 133]        :                                       
+[ 134]        :                                       ;===================================
+[ 135]        :                                       
+[ 136]        :                                       ; generates a random turn using
+[ 137]        :                                       ; system timer:
+[ 138]    004C:                                       random_turn proc
+[ 139]        :                                       
+[ 140]        :                                       ; get number of clock
+[ 141]        :                                       ; ticks since midnight
+[ 142]        :                                       ; in cx:dx
+[ 143]    004C: B4 00                                 mov ah, 0
+[ 144]    004E: CD 1A                                 int 1ah
+[ 145]        :                                       
+[ 146]        :                                       ; randomize using xor:
+[ 147]    0050: 32 F2                                 xor dh, dl
+[ 148]    0052: 32 E9                                 xor ch, cl
+[ 149]    0054: 32 EE                                 xor ch, dh
+[ 150]        :                                       
+[ 151]    0056: F6 C5 02                              test ch, 2
+[ 152]    0059: 74 0E                                 jz no_turn
+[ 153]        :                                       
+[ 154]    005B: F6 C5 01                              test ch, 1
+[ 155]    005E: 75 05                                 jnz turn_right
+[ 156]        :                                       
+[ 157]        :                                       ; turn left:
+[ 158]    0060: B0 02                                 mov al, 2
+[ 159]    0062: E6 09                                 out r_port, al
+[ 160]        :                                       ; exit from procedure:
+[ 161]    0064: C3                                    ret
+[ 162]        :                                       
+[ 163]    0065:                                       turn_right:
+[ 164]    0065: B0 03                                 mov al, 3
+[ 165]    0067: E6 09                                 out r_port, al
+[ 166]        :                                       
+[ 167]    0069:                                       no_turn:
+[ 168]    0069: C3                                    ret
+[ 169]        :                                       random_turn endp
+[ 170]        :                                       
+[ 171]        :                                       ;===================================
+[ 172]        :                                       
+[ 173]        :                                       
+ 
+===================================================================================================
+ 
+
+
+
+
+===================================================================================================
