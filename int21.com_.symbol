@@ -1,0 +1,25 @@
+< THE SYMBOL TABLE >  int21.com_  --  emu8086 assembler version: 4.08 
+===================================================================================================
+Name                     	Offset    	Size      	Type      	Segment   
+===================================================================================================
+S1                       	00103     	1         	VAR       	(NOSEG)   
+T2                       	00169     	1         	VAR       	(NOSEG)   
+FILENAME                 	001CF     	1         	VAR       	(NOSEG)   
+HANDLE                   	001EF     	2         	VAR       	(NOSEG)   
+START                    	001F1     	-1        	LABEL     	(NOSEG)   
+MSG1                     	001F9     	1         	VAR       	(NOSEG)   
+M1                       	0020A     	-1        	LABEL     	(NOSEG)   
+MSG2                     	0021A     	1         	VAR       	(NOSEG)   
+M2                       	0022E     	-1        	LABEL     	(NOSEG)   
+MSG3                     	002A6     	1         	VAR       	(NOSEG)   
+M3                       	002B9     	-1        	LABEL     	(NOSEG)   
+ERROR                    	002D4     	-1        	LABEL     	(NOSEG)   
+MSG5                     	002D6     	1         	VAR       	(NOSEG)   
+M5                       	002E3     	-1        	LABEL     	(NOSEG)   
+OK                       	002EA     	-1        	LABEL     	(NOSEG)   
+MSG4                     	002EC     	1         	VAR       	(NOSEG)   
+M4                       	00301     	-1        	LABEL     	(NOSEG)   
+===================================================================================================
+[ 24/06/2021  --  14:56:35 ] 
+< END >
+ 
