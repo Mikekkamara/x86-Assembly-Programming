@@ -1,0 +1,19 @@
+< THE SYMBOL TABLE >  calculatorAssignment.com_  --  emu8086 assembler version: 4.08 
+===================================================================================================
+Name                     	Offset    	Size      	Type      	Segment   
+===================================================================================================
+WELCOMEMESSAGE1          	00103     	1         	VAR       	(NOSEG)   
+WELCOMEMESSAGE2          	00137     	1         	VAR       	(NOSEG)   
+WELCOMEMESSAGE3          	00144     	1         	VAR       	(NOSEG)   
+WELCOMEMESSAGE4          	0015D     	1         	VAR       	(NOSEG)   
+OPTIONSMESSAGE           	00193     	1         	VAR       	(NOSEG)   
+ADDITIONOPTION           	001B9     	1         	VAR       	(NOSEG)   
+SUBRACTIONOPTION         	001C9     	1         	VAR       	(NOSEG)   
+DIVISIONOPTION           	001DD     	1         	VAR       	(NOSEG)   
+MULTIPLICATIONOPTION     	001ED     	1         	VAR       	(NOSEG)   
+WELCOME                  	00207     	-1        	LABEL     	(NOSEG)   
+OPTIONS                  	00229     	-1        	LABEL     	(NOSEG)   
+===================================================================================================
+[ 28/06/2021  --  13:58:28 ] 
+< END >
+ 

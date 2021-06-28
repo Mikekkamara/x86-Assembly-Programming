@@ -1,0 +1,96 @@
+EMU8086 GENERATED LISTING. MACHINE CODE <- SOURCE.
+ 
+calculatorAssignment.com_ -- emu8086 assembler version: 4.08  
+ 
+[ 28/06/2021  --  13:58:28 ] 
+ 
+===================================================================================================
+[LINE]     LOC: MACHINE CODE                          SOURCE
+===================================================================================================
+ 
+[   1]        :                                       
+[   2]        :                                       org 100h
+[   3]        :                                       
+[   4]    0100: E9 04 01                              jmp welcome
+[   5]        :                                       
+[   6]    0103: 2D 2D 2D 2D 2D 2D 2D 2D 2D 2D 2D 2D   welcomeMessage1 db "-------------------------------------------------- $"
+                2D 2D 2D 2D 2D 2D 2D 2D 2D 2D 2D 2D 
+                2D 2D 2D 2D 2D 2D 2D 2D 2D 2D 2D 2D 
+                2D 2D 2D 2D 2D 2D 2D 2D 2D 2D 2D 2D 
+                2D 2D 20 24                         
+[   7]    0137: 0D 0A 20 57 65 6C 63 6F 6D 65 2C 20   welcomeMessage2 db 0dh,0ah," ","Welcome, $"
+                24                                  
+[   8]    0144: 43 6F 6D 6D 61 6E 64 20 4C 69 6E 65   welcomeMessage3 db "Command Line Calculator $"
+                20 43 61 6C 63 75 6C 61 74 6F 72 20 
+                24                                  
+[   9]    015D: 0D 0A 2D 2D 2D 2D 2D 2D 2D 2D 2D 2D   welcomeMessage4 db 0dh,0ah,"-------------------------------------------------- $"
+                2D 2D 2D 2D 2D 2D 2D 2D 2D 2D 2D 2D 
+                2D 2D 2D 2D 2D 2D 2D 2D 2D 2D 2D 2D 
+                2D 2D 2D 2D 2D 2D 2D 2D 2D 2D 2D 2D 
+                2D 2D 2D 2D 20 24                   
+[  10]    0193: 0D 0A 50 6C 65 61 73 65 20 53 65 6C   optionsMessage db 0dh,0ah,"Please Select Operation To perform $"
+                65 63 74 20 4F 70 65 72 61 74 69 6F 
+                6E 20 54 6F 20 70 65 72 66 6F 72 6D 
+                20 24                               
+[  11]    01B9: 0D 0A 31 2E 20 41 64 64 69 74 69 6F   additionOption db 0dh,0ah,"1. Addition  $"
+                6E 20 20 24                         
+[  12]    01C9: 0D 0A 32 2E 20 53 75 62 74 72 61 63   subractionOption db 0dh,0ah,"2. Subtraction   $"
+                74 69 6F 6E 20 20 20 24             
+[  13]    01DD: 0D 0A 33 2E 20 44 69 76 69 73 69 6F   divisionOption db 0dh,0ah,"3. Division  $"
+                6E 20 20 24                         
+[  14]    01ED: 0D 0A 34 2E 20 4D 75 6C 74 69 70 6C   multiplicationOption db 0dh,0ah,"4. Multiplication    $",0dh,0ah
+                69 63 61 74 69 6F 6E 20 20 20 20 24 
+                0D 0A                               
+[  15]        :                                       
+[  16]        :                                       
+[  17]    0207:                                       welcome:
+[  18]    0207: BA 03 01                              mov dx, offset welcomeMessage1
+[  19]    020A: B4 09                                 mov ah, 9
+[  20]    020C: CD 21                                 int 21h
+[  21]    020E: BA 37 01                              mov dx, offset welcomeMessage2
+[  22]    0211: B4 09                                 mov ah, 9
+[  23]    0213: CD 21                                 int 21h
+[  24]    0215: BA 44 01                              mov dx, offset welcomeMessage3
+[  25]    0218: B4 09                                 mov ah, 9
+[  26]    021A: CD 21                                 int 21h
+[  27]    021C: BA 5D 01                              mov dx, offset welcomeMessage4
+[  28]    021F: B4 09                                 mov ah, 9
+[  29]    0221: CD 21                                 int 21h
+[  30]    0223: B4 06                                 mov ah,06h
+[  31]    0225: B0 00                                 mov al,00h
+[  32]    0227: CD 10                                 int 10h
+[  33]        :                                       ;jmp options
+[  34]        :                                       
+[  35]    0229:                                       options:
+[  36]    0229: BA 93 01                              mov dx, offset optionsMessage
+[  37]    022C: B4 09                                 mov ah, 9
+[  38]    022E: CD 21                                 int 21h
+[  39]    0230: BA B9 01                              mov dx, offset additionOption
+[  40]    0233: B4 09                                 mov ah, 9
+[  41]    0235: CD 21                                 int 21h
+[  42]    0237: BA C9 01                              mov dx, offset subractionOption
+[  43]    023A: B4 09                                 mov ah, 9
+[  44]    023C: CD 21                                 int 21h
+[  45]    023E: BA DD 01                              mov dx, offset divisionOption
+[  46]    0241: B4 09                                 mov ah, 9
+[  47]    0243: CD 21                                 int 21h
+[  48]    0245: BA ED 01                              mov dx, offset multiplicationOption
+[  49]    0248: B4 09                                 mov ah, 9
+[  50]    024A: CD 21                                 int 21h
+[  51]    024C: B4 01                                 mov ah,1
+[  52]    024E: CD 21                                 int 21h
+[  53]    0250: C3                                    ret
+[  54]        :                                       
+[  55]        :                                       
+[  56]        :                                       
+[  57]        :                                       
+[  58]        :                                       
+[  59]        :                                       
+ 
+===================================================================================================
+ 
+
+
+
+
+===================================================================================================
