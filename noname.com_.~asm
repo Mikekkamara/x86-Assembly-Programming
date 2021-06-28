@@ -1,17 +1,21 @@
-include emu8086.inc
+
 org 100h
 
-print 'Hello World'
-
-gotoxy 10,5
-
-putc 'A'
-putc 'B'
-
+jmp welcome
+msg db "Hello"
+welcome:
+mov al,0
+mov bh,0
+mov bl,0000_0111b
+mov cx, welcome - offset msg
+mov dl,3
+mov dh,4
+mov bp, offset msg
+mov ah,13h
+int 10h
 
 
 ret
-end
 
 
 
